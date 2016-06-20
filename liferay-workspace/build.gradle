@@ -7,7 +7,6 @@ buildscript {
 
     dependencies {
     		classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:3.2.0'
-    		classpath 'com.jcabi:jcabi-manifests:1.1'
             classpath 'com.squareup.okhttp3:okhttp:3.3.1'
             classpath 'de.undercouch:gradle-download-task:2.1.0'
     }
@@ -16,13 +15,11 @@ buildscript {
 apply plugin: 'biz.aQute.bnd.builder'
 apply plugin: 'de.undercouch.download'
 
-import com.jcabi.manifests.Manifests
-import java.util.jar.JarInputStream;
-import de.undercouch.gradle.tasks.download.Download;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-
-def bladeclijar = 'com.liferay.blade.cli_1.0.1.201606142156.jar'
+import java.util.jar.JarInputStream
+import de.undercouch.gradle.tasks.download.Download
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Request.Builder
 
 task downloadBladeCLI(type: Download) {
     dest buildDir
@@ -44,15 +41,15 @@ def blade(String... args) {
 task installBundlesTest(dependsOn: 'downloadBladeCLI') << {
 	blade("server", "start", "-b")
 
-	OkHttpClient client = new OkHttpClient();
-	Request request = new Request.Builder().url("http://localhost:8080").build();
+	OkHttpClient client = new OkHttpClient()
+	Request request = new Builder().url("http://localhost:8080").build()
 
-	boolean pingSucceeded = false;
+	boolean pingSucceeded = false
 
 	while (!pingSucceeded) {
 		try {
-			client.newCall(request).execute();
-			pingSucceeded = true;
+			client.newCall(request).execute()
+			pingSucceeded = true
 		}
 		catch( Exception e) {
 		}
