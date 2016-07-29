@@ -170,16 +170,9 @@ class BladeTests extends Specification {
 		when:
 			def testDir = Files.createTempDirectory("samplestest").toFile();
 
-			if (testDir.exists()) {
-				IO.delete(testDir);
-				assertFalse(testDir.exists());
-			}
-
-			testDir.mkdirs()
+			println "Testdir = ${testDir.absolutePath}"
 
 			executeBlade('create', '-d', "${testDir.absolutePath}", '-t', "${gradleTemplate}", "helloworld");
-
-			println "Testdir = ${testDir.absolutePath}"
 
 			def projectPath = new File("${testDir}/helloworld")
 
