@@ -184,29 +184,29 @@ class BladeTests extends Specification {
 
       def file = IO.getFile("${projectPath.absolutePath}/build/libs/helloworld-1.0.0.jar")
 
-            assertTrue(file.exists())
+      assertTrue(file.exists())
 
-            def installBundleOutput = executeBlade('sh', 'install', "file:${file}").text
+			println "file.toURI() ${file.toURI()}"
 
-            def bundleID = installBundleOutput.substring(installBundleOutput.length() - 3)
-            def printFileName = new File(file).name
-            printFileName = printFileName.split("-")[0];
+      def installBundleOutput = executeBlade('sh', 'install', "${file.toURI()}").text
 
-            println "Installing ${printFileName}"
+      def bundleID = installBundleOutput.substring(installBundleOutput.length() - 3)
+      def printFileName = file.name
+      printFileName = printFileName.split("-")[0];
 
-            if (installBundleOutput.contains("Failed")) {
-            	throw new GradleException(installBundleOutput)
-            }
+      println "Installing ${printFileName}"
 
-            def startOutput = executeBlade('sh', 'start', bundleID).text
+      if (installBundleOutput.contains("Failed")) {
+				throw new GradleException(installBundleOutput)
+      }
 
-            println "Starting ${printFileName}"
+      def startOutput = executeBlade('sh', 'start', bundleID).text
 
-            if (startOutput.contains("Exception")) {
-            	errorList.add(startOutput)
-            }
+      println "Starting ${printFileName}"
 
-
+      if (startOutput.contains("Exception")) {
+				errorList.add(startOutput)
+      }
 
 		then:
 			if (errorList.isEmpty()) {
