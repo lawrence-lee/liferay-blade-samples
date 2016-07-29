@@ -182,7 +182,7 @@ class BladeTests extends Specification {
             					.withArguments('build')
             					.build()
 
-            def file = IO.getFile("${testDir.absolutePath}/helloworld/build/libs/helloworld-1.0.0.jar")
+      def file = IO.getFile("${projectPath.absolutePath}/build/libs/helloworld-1.0.0.jar")
 
             assertTrue(file.exists())
 
