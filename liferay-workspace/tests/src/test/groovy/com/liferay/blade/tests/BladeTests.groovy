@@ -82,7 +82,6 @@ class BladeTests extends Specification {
 
 	def setupSpec () {
 		println "Starting Server"
-		def bladeclijar = getLatestBladeCLIJar()
 
 		executeBlade('server','start', '-b');
 
