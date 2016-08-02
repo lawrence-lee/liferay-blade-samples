@@ -9,16 +9,16 @@ import aQute.bnd.deployer.repository.FixedIndexedRepo;
 import aQute.bnd.osgi.Processor;
 import aQute.lib.io.IO;
 
-public class BladeCommandUtil {
-	public static File createBladeBundle (File testDir, String templateName, String bundleName) throws Exception {
-		executeBlade("create", "-d", testDir.getAbsolutePath(), "-t", templateName, bundleName);
+public class BladeCLI {
+	public static File createProject (File testDir, String templateName, String bundleName) throws Exception {
+		execute("create", "-d", testDir.getAbsolutePath(), "-t", templateName, bundleName);
 
 		File projectPath = new File(testDir + "/" + bundleName);
 
 		return projectPath;
 	}
 
-	public static String executeBlade(String... args) throws Exception {
+	public static String execute(String... args) throws Exception {
 		String bladeclijar = getLatestBladeCLIJar();
 		StringBuilder sb = new StringBuilder()
 					.append("java -jar ")
@@ -37,7 +37,7 @@ public class BladeCommandUtil {
 	}
 
 	public static String installBundle(File file) throws Exception {
-		String output = executeBlade("sh", "install", file.toURI().toString());
+		String output = execute("sh", "install", file.toURI().toString());
 
 		String bundleID = output.substring(output.length() -3);
 
@@ -53,7 +53,7 @@ public class BladeCommandUtil {
 	}
 
 	public static String startBundle(String bundleID) throws Exception {
-		String output = executeBlade("sh", "start", bundleID);
+		String output = execute("sh", "start", bundleID);
 		System.out.println("Starting " + printFileName);
 
 		if (output.contains("Exception")) {
@@ -65,7 +65,7 @@ public class BladeCommandUtil {
 	private static String printFileName;
 
 	public static String getLatestBladeCLIJar() throws Exception{
-		if (BladeSampleTests.bladeJarPath == null) {
+		if (BladeTest.bladeJarPath == null) {
 			String repoPath = new File("build").getAbsolutePath();
 			FixedIndexedRepo repo = new FixedIndexedRepo();
 
@@ -80,8 +80,8 @@ public class BladeCommandUtil {
 			File[] files = repo.get( "com.liferay.blade.cli", "[1,2)" );
 			File cliJar = files[0];
 
-			BladeSampleTests.bladeJarPath = cliJar.getCanonicalPath();
+			BladeTest.bladeJarPath = cliJar.getCanonicalPath();
 		}
-		return BladeSampleTests.bladeJarPath;
+		return BladeTest.bladeJarPath;
 	}
 }

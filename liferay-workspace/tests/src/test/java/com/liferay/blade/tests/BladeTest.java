@@ -42,12 +42,12 @@ import okhttp3.Request.Builder;
 /**
  * @author Lawrence Lee
  */
-public class BladeSampleTests {
+public class BladeTest {
 	@BeforeClass
 	public static void startServer() throws Exception {
 		System.out.println("Starting Server");
 
-		BladeCommandUtil.executeBlade("server", "start", "-b");
+		BladeCLI.execute("server", "start", "-b");
 
 		OkHttpClient client = new OkHttpClient();
 		Request request = new Builder().url("http://localhost:8080").build();
@@ -67,23 +67,18 @@ public class BladeSampleTests {
 
 	@AfterClass
 	public static void stopServer() throws Exception {
-		BladeCommandUtil.executeBlade("server", "stop");
+		BladeCLI.execute("server", "stop");
 		System.out.println("Stopping Server");
 	}
 
 	@Before
 	public void setUp() throws Exception {
-		testDir = Files.createTempDirectory("samplestest").toFile();
-
-		if (testDir.exists()) {
-			IO.delete(testDir);
-			assertFalse(testDir.exists());
-		}
+		testDir = Files.createTempDirectory("bladetest").toFile();
 	}
 
 	@After
 	public void uninstallBundle () throws Exception {
-		BladeCommandUtil.executeBlade("sh", "uninstall", bundleID);
+		BladeCLI.execute("sh", "uninstall", bundleID);
 	}
 
 	public void cleanUp() throws Exception {
@@ -94,8 +89,8 @@ public class BladeSampleTests {
 	}
 
 	@Test
-	public void verifyControlMenuEntryGradleTemplates () throws Exception {
-		File projectPath = BladeCommandUtil.createBladeBundle(testDir, "controlmenuentry", "helloworld");
+	public void verifyControlMenuEntryGradleTemplates() throws Exception {
+		File projectPath = BladeCLI.createProject(testDir, "controlmenuentry", "helloworld");
 
 		BuildTask buildtask = GradleRunnerUtil.executeGradleRunner(projectPath, "build");
 
@@ -104,18 +99,18 @@ public class BladeSampleTests {
 
 		File buildOutput = new File(projectPath + "/build/libs/helloworld-1.0.0.jar");
 
-		bundleID = BladeCommandUtil.installBundle(buildOutput);
+		bundleID = BladeCLI.installBundle(buildOutput);
 
-		BladeCommandUtil.startBundle(bundleID);
+		BladeCLI.startBundle(bundleID);
 
-		String listBundleOutput = BladeCommandUtil.executeBlade("sh", "lb", "-s", "helloworld");
+		String listBundleOutput = BladeCLI.execute("sh", "lb", "-s", "helloworld");
 
 		System.out.println(listBundleOutput);
 	}
 
 	@Test
 	public void verifyMVCPortletGradleTemplates () throws Exception {
-		File projectPath = BladeCommandUtil.createBladeBundle(testDir, "mvcportlet", "helloworld");
+		File projectPath = BladeCLI.createProject(testDir, "mvcportlet", "helloworld");
 
 		BuildTask buildtask = GradleRunnerUtil.executeGradleRunner(projectPath, "build");
 
@@ -124,18 +119,18 @@ public class BladeSampleTests {
 
 		File buildOutput = new File(projectPath + "/build/libs/helloworld-1.0.0.jar");
 
-		bundleID = BladeCommandUtil.installBundle(buildOutput);
+		bundleID = BladeCLI.installBundle(buildOutput);
 
-		BladeCommandUtil.startBundle(bundleID);
+		BladeCLI.startBundle(bundleID);
 
-		String listBundleOutput = BladeCommandUtil.executeBlade("sh", "lb", "-s", "helloworld");
+		String listBundleOutput = BladeCLI.execute("sh", "lb", "-s", "helloworld");
 
 		System.out.println(listBundleOutput);
 	}
 
 	@Test
 	public void verifyPanelAppGradleTemplates () throws Exception {
-		File projectPath = BladeCommandUtil.createBladeBundle(testDir, "panelapp", "helloworld");
+		File projectPath = BladeCLI.createProject(testDir, "panelapp", "helloworld");
 
 		BuildTask buildtask = GradleRunnerUtil.executeGradleRunner(projectPath, "build");
 
@@ -144,18 +139,18 @@ public class BladeSampleTests {
 
 		File buildOutput = new File(projectPath + "/build/libs/helloworld-1.0.0.jar");
 
-		bundleID = BladeCommandUtil.installBundle(buildOutput);
+		bundleID = BladeCLI.installBundle(buildOutput);
 
-		BladeCommandUtil.startBundle(bundleID);
+		BladeCLI.startBundle(bundleID);
 
-		String listBundleOutput = BladeCommandUtil.executeBlade("sh", "lb", "-s", "helloworld");
+		String listBundleOutput = BladeCLI.execute("sh", "lb", "-s", "helloworld");
 
 		System.out.println(listBundleOutput);
 	}
 
 	@Test
 	public void verifyPortletGradleTemplates () throws Exception {
-		File projectPath = BladeCommandUtil.createBladeBundle(testDir, "portlet", "helloworld");
+		File projectPath = BladeCLI.createProject(testDir, "portlet", "helloworld");
 
 		BuildTask buildtask = GradleRunnerUtil.executeGradleRunner(projectPath, "build");
 
@@ -164,18 +159,18 @@ public class BladeSampleTests {
 
 		File buildOutput = new File(projectPath + "/build/libs/helloworld-1.0.0.jar");
 
-		bundleID = BladeCommandUtil.installBundle(buildOutput);
+		bundleID = BladeCLI.installBundle(buildOutput);
 
-		BladeCommandUtil.startBundle(bundleID);
+		BladeCLI.startBundle(bundleID);
 
-		String listBundleOutput = BladeCommandUtil.executeBlade("sh", "lb", "-s", "helloworld");
+		String listBundleOutput = BladeCLI.execute("sh", "lb", "-s", "helloworld");
 
 		System.out.println(listBundleOutput);
 	}
 
 	@Test
 	public void verifyPortletProviderGradleTemplates () throws Exception {
-		File projectPath = BladeCommandUtil.createBladeBundle(testDir, "portletprovider", "helloworld");
+		File projectPath = BladeCLI.createProject(testDir, "portletprovider", "helloworld");
 
 		BuildTask buildtask = GradleRunnerUtil.executeGradleRunner(projectPath, "build");
 
@@ -184,18 +179,18 @@ public class BladeSampleTests {
 
 		File buildOutput = new File(projectPath + "/build/libs/helloworld-1.0.0.jar");
 
-		bundleID = BladeCommandUtil.installBundle(buildOutput);
+		bundleID = BladeCLI.installBundle(buildOutput);
 
-		BladeCommandUtil.startBundle(bundleID);
+		BladeCLI.startBundle(bundleID);
 
-		String listBundleOutput = BladeCommandUtil.executeBlade("sh", "lb", "-s", "helloworld");
+		String listBundleOutput = BladeCLI.execute("sh", "lb", "-s", "helloworld");
 
 		System.out.println(listBundleOutput);
 	}
 
 	@Test
 	public void verifyServiceGradleTemplate () throws Exception {
-		File projectPath = BladeCommandUtil.createBladeBundle(testDir, "service", "helloworld");
+		File projectPath = BladeCLI.createProject(testDir, "service", "helloworld");
 
 		File file = new File(projectPath + "/src/main/java/service/FooAction.java");
 
@@ -236,18 +231,18 @@ public class BladeSampleTests {
 
 		File buildOutput = new File(projectPath + "/build/libs/helloworld-1.0.0.jar");
 
-		bundleID = BladeCommandUtil.installBundle(buildOutput);
+		bundleID = BladeCLI.installBundle(buildOutput);
 
-		BladeCommandUtil.startBundle(bundleID);
+		BladeCLI.startBundle(bundleID);
 
-		String listBundleOutput = BladeCommandUtil.executeBlade("sh", "lb", "-s", "helloworld");
+		String listBundleOutput = BladeCLI.execute("sh", "lb", "-s", "helloworld");
 
 		System.out.println(listBundleOutput);
 	}
 
 	@Test
 	public void verifyServiceBuilderGradleTemplate () throws Exception {
-		File projectPath = BladeCommandUtil.createBladeBundle(testDir, "servicebuilder", "helloworld");
+		File projectPath = BladeCLI.createProject(testDir, "servicebuilder", "helloworld");
 
 		BuildTask buildService = GradleRunnerUtil.executeGradleRunner(projectPath, "buildService");
 		GradleRunnerUtil.verifyGradleRunnerOutput(buildService);
@@ -258,18 +253,18 @@ public class BladeSampleTests {
 
 		File buildOutput = new File(projectPath + "/build/libs/helloworld-1.0.0.jar");
 
-		bundleID = BladeCommandUtil.installBundle(buildOutput);
+		bundleID = BladeCLI.installBundle(buildOutput);
 
-		BladeCommandUtil.startBundle(bundleID);
+		BladeCLI.startBundle(bundleID);
 
-		String listBundleOutput = BladeCommandUtil.executeBlade("sh", "lb", "-s", "helloworld");
+		String listBundleOutput = BladeCLI.execute("sh", "lb", "-s", "helloworld");
 
 		System.out.println(listBundleOutput);
 	}
 
 	@Test
 	public void verifyServiceWrapperGradleTemplate () throws Exception {
-		File projectPath = BladeCommandUtil.createBladeBundle(testDir, "servicewrapper", "helloworld");
+		File projectPath = BladeCLI.createProject(testDir, "servicewrapper", "helloworld");
 
 		BuildTask buildtask = GradleRunnerUtil.executeGradleRunner(projectPath, "build");
 
@@ -278,11 +273,11 @@ public class BladeSampleTests {
 
 		File buildOutput = new File(projectPath + "/build/libs/helloworld-1.0.0.jar");
 
-		bundleID = BladeCommandUtil.installBundle(buildOutput);
+		bundleID = BladeCLI.installBundle(buildOutput);
 
-		BladeCommandUtil.startBundle(bundleID);
+		BladeCLI.startBundle(bundleID);
 
-		String listBundleOutput = BladeCommandUtil.executeBlade("sh", "lb", "-s", "helloworld");
+		String listBundleOutput = BladeCLI.execute("sh", "lb", "-s", "helloworld");
 
 		System.out.println(listBundleOutput);
 	}
