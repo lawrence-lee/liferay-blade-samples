@@ -43,11 +43,13 @@ import okhttp3.Request.Builder;
  * @author Lawrence Lee
  */
 public class BladeTest {
+	
+	
 	@BeforeClass
 	public static void startServer() throws Exception {
 		System.out.println("Starting Server");
 
-		BladeCLI.execute("server", "start", "-b");
+		BladeCLI.execute(new File(".."), "server", "start", "-b");
 
 		OkHttpClient client = new OkHttpClient();
 		Request request = new Builder().url("http://localhost:8080").build();
@@ -58,9 +60,11 @@ public class BladeTest {
 			try {
 				client.newCall(request).execute();
 				pingSucceeded = true;
+				break;
 			}
 			catch( Exception e) {
 			}
+			Thread.sleep(100);
 		}
 		System.out.println("Server Started");
 	}
@@ -282,7 +286,6 @@ public class BladeTest {
 		System.out.println(listBundleOutput);
 	}
 
-	static String bladeJarPath;
 	private File testDir;
 	private String bundleID;
 }

@@ -1,8 +1,12 @@
 package com.liferay.blade.tests;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import aQute.bnd.deployer.repository.FixedIndexedRepo;
@@ -10,6 +14,8 @@ import aQute.bnd.osgi.Processor;
 import aQute.lib.io.IO;
 
 public class BladeCLI {
+	private static File bladeJar;
+
 	public static File createProject (File testDir, String templateName, String bundleName) throws Exception {
 		execute("create", "-d", testDir.getAbsolutePath(), "-t", templateName, bundleName);
 
@@ -17,22 +23,36 @@ public class BladeCLI {
 
 		return projectPath;
 	}
+	
+	public static String execute(String... bladeArgs) throws Exception {
+		return execute(null, bladeArgs);
+	}
 
-	public static String execute(String... args) throws Exception {
-		String bladeclijar = getLatestBladeCLIJar();
-		StringBuilder sb = new StringBuilder()
-					.append("java -jar ")
-					.append(bladeclijar + " ");
-					for (String arg : args) {
-						sb.append(arg + " ");
-					}
+	public static String execute(File workingDir, String... bladeArgs) throws Exception {
 
-		Process process = Runtime.getRuntime().exec(sb.toString());
+		String bladeCLIJarPath = getLatestBladeCLIJar();
+
+		List<String> command = new ArrayList<>();
+		command.add("java");
+		command.add("-jar");
+		command.add(bladeCLIJarPath);
+
+		for (String arg : bladeArgs) {
+			command.add(arg);
+		}
+		
+		Process process = new ProcessBuilder(command.toArray(new String[0])).directory(workingDir).start();
 
 		process.waitFor();
 
 		InputStream stream = process.getInputStream();
 		String output = new String(IO.read(stream));
+		
+		InputStream errorStream = process.getErrorStream();
+		String errors = new String(IO.read(errorStream));
+		
+		assertTrue(errors, errors == null || errors.isEmpty());
+
 		return output;
 	}
 
@@ -64,8 +84,8 @@ public class BladeCLI {
 
 	private static String printFileName;
 
-	public static String getLatestBladeCLIJar() throws Exception{
-		if (BladeTest.bladeJarPath == null) {
+	public static String getLatestBladeCLIJar() throws Exception {
+		if (bladeJar == null) {
 			String repoPath = new File("build").getAbsolutePath();
 			FixedIndexedRepo repo = new FixedIndexedRepo();
 
@@ -80,8 +100,9 @@ public class BladeCLI {
 			File[] files = repo.get( "com.liferay.blade.cli", "[1,2)" );
 			File cliJar = files[0];
 
-			BladeTest.bladeJarPath = cliJar.getCanonicalPath();
+			bladeJar = cliJar;
 		}
-		return BladeTest.bladeJarPath;
+
+		return bladeJar.getCanonicalPath();
 	}
 }
