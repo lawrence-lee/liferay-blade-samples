@@ -1,5 +1,6 @@
 # Reluctant Service Override
 
+This module 
 With the help of an OSGi Configuration Admin file, this module's
 `com.liferay.blade.reluctant.svc.api.SomeService` implementation
 `CustomServiceImpl` can be bound to `SomeService` service references that have
