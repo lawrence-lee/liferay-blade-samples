@@ -58,6 +58,14 @@ task testFunctional(type: Test) {
 	systemProperty 'portletConfigurationIconJarFile', project(':extensions:portlet-configuration-icon').jar.archivePath
 	systemProperty 'portletToolbarContributorJarFile', project(':extensions:portlet-toolbar-contributor').jar.archivePath
 
+	project(':apps:shared-language-keys:language').afterEvaluate { project ->
+		systemProperty 'languageJarFile', project.jar.archivePath
+	}
+
+	project(':apps:shared-language-keys:language-web').afterEvaluate { project ->
+		systemProperty 'languageWebJarFile', project.jar.archivePath
+	}
+
 	finalizedBy {
 		stopTestableTomcat
 	}
