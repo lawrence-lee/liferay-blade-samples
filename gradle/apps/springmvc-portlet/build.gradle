@@ -8,11 +8,13 @@ buildscript {
 
 	dependencies {
 		classpath group: "com.liferay", name: "com.liferay.gradle.plugins.css.builder", version: "latest.release"
+		classpath group: "com.liferay", name: "com.liferay.gradle.plugins.source.formatter", version: "latest.release"
 		classpath group: "com.liferay", name: "com.liferay.css.builder", version: "latest.release"
 	}
 }
 
 apply plugin: "com.liferay.css.builder"
+apply plugin: "com.liferay.source.formatter"
 apply plugin: 'war'
 
 war {
