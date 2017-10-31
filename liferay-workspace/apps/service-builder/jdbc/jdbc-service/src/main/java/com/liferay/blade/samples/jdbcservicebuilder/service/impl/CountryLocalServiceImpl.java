@@ -49,7 +49,6 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use {@link com.liferay.blade.samples.jdbcservicebuilder.service.CountryLocalServiceUtil} to access the country local service.
 	 */
-
 	public void useJDBC() {
 		try {
 			DataSource datasource = countryPersistence.getDataSource();

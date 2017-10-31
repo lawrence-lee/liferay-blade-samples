@@ -49,7 +49,6 @@ public class RegionLocalServiceImpl extends RegionLocalServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use {@link com.liferay.blade.samples.jndiservicebuilder.service.RegionLocalServiceUtil} to access the region local service.
 	 */
-
 	public void useJNDI() {
 		try {
 			DataSource datasource = regionPersistence.getDataSource();
