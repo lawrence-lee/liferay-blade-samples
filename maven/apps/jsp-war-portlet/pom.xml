@@ -30,13 +30,13 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.0.0</version>
 				<configuration>
-					<packagingExcludes>**/*.scss,**/.sass-cache/**</packagingExcludes> 
+					<packagingExcludes>**/*.scss,**/.sass-cache/**</packagingExcludes>
 					<webResources>
 						<resource>
 							<directory>src/main/webapp</directory>
 							<excludes>
 								<exclude>**/*.scss</exclude>
-								<exclude>**/.sass-cache/**</exclude> 
+								<exclude>**/.sass-cache/**</exclude>
 							</excludes>
 						</resource>
 						<resource>
@@ -59,6 +59,7 @@
 					</execution>
 				</executions>
 				<configuration>
+					<dirNames>/css</dirNames>
 					<docrootDirName>src/main/webapp</docrootDirName>
 					<outputDirName>${project.build.directory}/compiledCss</outputDirName>
 					<precision>9</precision>
