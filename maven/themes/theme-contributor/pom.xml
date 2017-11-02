@@ -36,7 +36,7 @@
 						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
 					</archive>
 					<excludes>
-						<exclude>**/META-INF/resources/**/.sass-cache/</exclude>
+						<exclude>**/META-INF/resources/**/.sass-cache/**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
@@ -79,7 +79,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<docrootDirName>${project.build.outputDirectory}</docrootDirName>
+					<docrootDirName>src/main/resources/</docrootDirName>
 				</configuration>
 			</plugin>
 		</plugins>
