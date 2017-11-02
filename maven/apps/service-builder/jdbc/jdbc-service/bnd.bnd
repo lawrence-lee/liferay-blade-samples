@@ -6,3 +6,4 @@ Liferay-Service: true
 -sources: true
 -plugin.service: com.liferay.ant.bnd.service.ServiceAnalyzerPlugin
 -plugin.spring: com.liferay.ant.bnd.spring.SpringDependencyAnalyzerPlugin
+-plugin.springcomponent: aQute.lib.spring.SpringComponent
