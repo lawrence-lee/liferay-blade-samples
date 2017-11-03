@@ -26,12 +26,21 @@ startTestableTomcat {
 	checkTimeout = 10 * 60 * 1000
 }
 
+task (foobar) {
+
+	doFirst {
+		HSQLServerUtil.doFoo()
+	}
+
+}
+
 testIntegration {
+
+	
 	testClassesDir = sourceSets.testIntegration.output.classesDir
 	outputs.upToDateWhen { false }
 
-	dependsOn jar//, ":initBundle", startTestableTomcat
-	dependsOn ":apps:service-builder:jndi:jndi-api:jar"
+	dependsOn jar, ":initBundle", startTestableTomcat
 
 	systemProperty 'jarFile', jar.archivePath
 

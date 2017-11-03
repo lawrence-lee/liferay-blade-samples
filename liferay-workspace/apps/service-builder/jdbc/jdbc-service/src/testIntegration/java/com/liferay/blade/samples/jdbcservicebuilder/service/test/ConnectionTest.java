@@ -107,7 +107,7 @@ public class ConnectionTest {
 		try {
 			Class.forName("org.hsqldb.jdbc.JDBCDriver");
 			dbConn = DriverManager.getConnection(
-				"jdbc:hsqldb:hsql://localhost/xdb", "SA", "");
+				"jdbc:hsqldb:hsql://localhost:54322/xdb", "SA", "");
 		}
 		catch (Exception e) {
 			throw e;
@@ -135,6 +135,7 @@ public class ConnectionTest {
 
 			props.setProperty("server.database.0", "mem:testdb;");
 			props.setProperty("server.dbname.0", "xdb");
+		    props.setProperty("server.port", "54322");
 
 			_sonicServer = new org.hsqldb.Server();
 
