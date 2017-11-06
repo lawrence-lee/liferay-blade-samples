@@ -189,6 +189,6 @@ public class BladeServiceBuilderIntegrationTest {
 		}
 	}
 
-	private static String _fooApiJarBSN = "com.liferay.blade.foo.api";
+	private static String _fooApiJarBSN = "com.liferay.blade.basic.api";
 
 }

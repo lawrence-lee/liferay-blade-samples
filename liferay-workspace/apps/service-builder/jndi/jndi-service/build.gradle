@@ -43,11 +43,11 @@ testIntegration {
 	dependsOn jar, ":initBundle", startTestableTomcat
 
 	systemProperty 'jarFile', jar.archivePath
-
-	project(':apps:service-builder:jndi:jndi-api').afterEvaluate { project ->
-		dependsOn project.jar
-		systemProperty 'jndiApiJarFile', project.jar.archivePath
-	}
+	
+	dependsOn ":apps:service-builder:jndi:jndi-api:jar"
+    
+    systemProperty 'jndiApiJarFile', project(':apps:service-builder:jndi:jndi-api').jar.archivePath
+	
 }
 
 stopTestableTomcat {
