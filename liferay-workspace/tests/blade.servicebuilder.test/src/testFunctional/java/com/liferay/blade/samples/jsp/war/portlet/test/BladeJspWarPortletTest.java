@@ -214,8 +214,8 @@ public class BladeJspWarPortletTest {
 			_table.getText().contains("field1 with Updated Name"));
 	}
 
-	private static String _fooApiJarBSN = "com.liferay.blade.foo.api";
-	private static String _fooServiceJarBSN = "com.liferay.blade.foo.service";
+	private static String _fooApiJarBSN = "com.liferay.blade.basic.api";
+	private static String _fooServiceJarBSN = "com.liferay.blade.basic.service";
 	private static String _jspPortletWarBSN = "jsp-war-portlet";
 
 	@FindBy(xpath = "//span[@class='lfr-btn-label']")

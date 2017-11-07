@@ -30,15 +30,14 @@ testIntegration {
 	testClassesDir = sourceSets.testIntegration.output.classesDir
 	outputs.upToDateWhen { false }
 
-	dependsOn jar//, ":initBundle", startTestableTomcat
-	dependsOn ":apps:service-builder:jdbc:jdbc-api:jar"
+	dependsOn jar, ":initBundle", startTestableTomcat
 
 	systemProperty 'jarFile', jar.archivePath
 
-	project(':apps:service-builder:jdbc:jdbc-api').afterEvaluate { project ->
-		dependsOn project.jar
-		systemProperty 'jdbcApiJarFile', project.jar.archivePath
-	}
+	dependsOn ":apps:service-builder:jdbc:jdbc-api:jar"
+    
+    systemProperty 'jdbcApiJarFile', project(':apps:service-builder:jdbc:jdbc-api').jar.archivePath
+
 
 }
 
