@@ -82,7 +82,6 @@ public class BladeSimpleNpmPortletTest {
 			_portletBodyPre.getText().contains("Portlet main module loaded."));
 	}
 
-	@Ignore //only seems to work in firefox, not in phantomjs
 	@Test
 	public void testBladeSimpleNpmMaster() throws InterruptedException {
 		Assume.assumeTrue(

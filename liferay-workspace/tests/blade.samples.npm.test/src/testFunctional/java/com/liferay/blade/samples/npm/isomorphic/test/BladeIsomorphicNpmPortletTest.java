@@ -82,7 +82,6 @@ public class BladeIsomorphicNpmPortletTest {
 			_portletBodyPre.getText().contains("Portlet main module loaded."));
 	}
 
-	@Ignore //only seems to work in firefox, not in phantomjs
 	@Test
 	public void testBladeIsomorphicNpmMaster() throws InterruptedException {
 		Assume.assumeTrue(
