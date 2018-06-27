@@ -31,7 +31,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -82,7 +81,7 @@ public class BladeJqueryNpmPortletTest {
 	@FindBy(xpath = "//section[contains(@id,'JQueryPortlet')]")
 	private WebElement _bladeNpmJQueryPortlet;
 
-	@FindBy(xpath = "//section[contains(@id,'JQueryPortlet')]/div/div/div")
+	@FindBy(xpath = "//section[contains(@id,'JQueryPortlet')]//..//div[@class='portlet-body']/div")
 	private WebElement _portletBodyBody;
 
 	@FindBy(xpath = "//section[contains(@id,'JQueryPortlet')]/header/div/span")

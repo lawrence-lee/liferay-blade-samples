@@ -31,7 +31,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -67,8 +66,8 @@ public class BladeReactNpmPortletTest {
 			_webDriver, _bladeNpmReactPortlet);
 
 		Assert.assertTrue(
-			"Expected: React Portlet, but saw: " + _portletTitle.getText(),
-			_portletTitle.getText().contentEquals("React Portlet"));
+			"Expected: REACT PORTLET, but saw: " + _portletTitle.getText(),
+			_portletTitle.getText().contentEquals("REACT PORTLET"));
 
 		BladeSampleFunctionalActionUtil.mouseOverClick(
 			_webDriver, _portletBody);
@@ -101,7 +100,7 @@ public class BladeReactNpmPortletTest {
 	@FindBy(xpath = "//div[@class='game-board']/div/div")
 	private WebElement _portletGameBoardStatus;
 
-	@FindBy(xpath = "//section[contains(@id,'ReactPortlet')]/div/h2")
+	@FindBy(xpath = "//section[contains(@id,'ReactPortlet')]//..//div/h2")
 	private WebElement _portletTitle;
 
 	@PortalURL("com_liferay_blade_npm_react_portlet_ReactPortlet")
@@ -109,5 +108,4 @@ public class BladeReactNpmPortletTest {
 
 	@Drone
 	private WebDriver _webDriver;
-
 }
