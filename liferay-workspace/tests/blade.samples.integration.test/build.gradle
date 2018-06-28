@@ -24,7 +24,7 @@ startTestableTomcat {
 testIntegration {
 	outputs.upToDateWhen { false }
 
-//	dependsOn ":initBundle", startTestableTomcat
+	dependsOn ":initBundle", startTestableTomcat
 
 	beforeSuite {
 		def moduleOutputPaths = []
@@ -64,7 +64,7 @@ testIntegration {
 
 	}
 
-	systemProperty 'bladeURL', System.getProperty('bladeURL', "https://jenkins-lide.wedeploy.io/job/liferay-blade-cli/12/artifact/cli/build/libs/blade.jar")
+	systemProperty 'bladeURL', System.getProperty('bladeURL', "https://liferay-test-01.ci.cloudbees.com/job/liferay-blade-cli/610/artifact/cli/build/libs/blade.jar")
 	systemProperty 'portalVersion', project.getProperty("liferay.workspace.bundle.url")
 
 	finalizedBy {
