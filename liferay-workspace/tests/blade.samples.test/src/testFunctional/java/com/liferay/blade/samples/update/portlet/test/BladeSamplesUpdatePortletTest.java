@@ -103,7 +103,7 @@ public class BladeSamplesUpdatePortletTest {
 		Assert.assertTrue(
 			_portletTitle.getText(),
 			BladeSampleFunctionalActionUtil.getTextToLowerCase(
-				_portletTitle).equals("helloworld portlet"));
+				_portletTitle).equals("helloworld"));
 		Assert.assertTrue(
 			_portletBody.getText(),
 			_portletBody.getText().equals("Hello from helloworld JSP!"));
