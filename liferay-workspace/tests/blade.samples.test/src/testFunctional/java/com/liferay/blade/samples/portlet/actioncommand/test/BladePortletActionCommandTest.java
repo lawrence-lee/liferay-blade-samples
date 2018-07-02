@@ -76,10 +76,16 @@ public class BladePortletActionCommandTest {
 
 		BladeSampleFunctionalActionUtil.mouseOverClick(_webDriver, _saveButton);
 
+		Thread.sleep(1000);
+
+		_webDriver.navigate().refresh();
+
 		Assert.assertTrue(
-			"Expected Hello tester! Welcome to OSGi Hello from BLADE!, but saw " +
-				_portletBody.getText(),
-			_portletBody.getText().contains(
+			"Expected Hello tester! Welcome to OSGi Hello from BLADE!," +
+				" but saw " + _portletBody.getText(),
+			BladeSampleFunctionalActionUtil.isTextPresent(
+				_webDriver,
+				_portletBody,
 				"Hello tester! Welcome to OSGi Hello from BLADE!"));
 	}
 
