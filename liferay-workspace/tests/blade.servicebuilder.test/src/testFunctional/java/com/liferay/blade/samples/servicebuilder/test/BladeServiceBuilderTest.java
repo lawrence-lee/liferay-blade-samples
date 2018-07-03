@@ -41,7 +41,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -109,6 +108,12 @@ public class BladeServiceBuilderTest {
 
 		BladeSampleFunctionalActionUtil.implicitWait(_webDriver);
 
+		String url = _webDriver.getCurrentUrl();
+
+		BladeSampleFunctionalActionUtil.implicitWait(_webDriver);
+
+		String windowHandler = _webDriver.getWindowHandle();
+
 		List<WebElement> rows = _webDriver.findElements(
 			By.xpath(
 				"//table[contains(@data-searchcontainerid,'foosSearchContainer')]/tbody/tr"));
@@ -121,27 +126,21 @@ public class BladeServiceBuilderTest {
 
 		BladeSampleFunctionalActionUtil.mouseOverClick(_webDriver, _lfrIconMenu);
 
-		JavascriptExecutor javascriptExecutor = (JavascriptExecutor)_webDriver;
-
 		Assert.assertTrue(
 			"Action Menu Delete is not clickable",
-			BladeSampleFunctionalActionUtil.isClickable(_webDriver, _lfrMenuDelete));
+			BladeSampleFunctionalActionUtil.isVisible(_webDriver, _lfrMenuDelete));
 
 		BladeSampleFunctionalActionUtil.mouseOverClick(_webDriver, _lfrMenuDelete);
 
-		String source = _webDriver.getPageSource();
+		Assert.assertTrue(
+			"Alert is not present!",
+			BladeSampleFunctionalActionUtil.isAlertPresent(_webDriver));
 
-		String executescript = source.substring(
-				source.indexOf("item-remove") + 1,
-				source.indexOf("<span class=\"taglib-text-icon\">Delete</span>"));
-
-		String script = executescript.substring(
-			executescript.indexOf("submitForm") - 1,
-			executescript.indexOf("else") - 2);
-
-		javascriptExecutor.executeScript(script);
+		_webDriver.switchTo().window(windowHandler);
 
 		Thread.sleep(1000);
+
+		_webDriver.navigate().to(url);
 
 		_webDriver.navigate().refresh();
 
@@ -157,8 +156,7 @@ public class BladeServiceBuilderTest {
 
 		Assert.assertTrue(
 			"Expected " + expectedFoos + " foos, but saw " + newRows + " foos",
-			newRows == expectedFoos);
-	}
+			newRows == expectedFoos);	}
 
 	@Test
 	public void testReadFoo() throws PortalException {
@@ -199,6 +197,10 @@ public class BladeServiceBuilderTest {
 
 		_field1Form.sendKeys("field1 with Updated Name");
 
+		Assert.assertTrue(
+			"Save button is not visible",
+			BladeSampleFunctionalActionUtil.isClickable(_webDriver, _saveButton));
+
 		BladeSampleFunctionalActionUtil.mouseOverClick(_webDriver, _saveButton);
 
 		Assert.assertTrue(
@@ -214,19 +216,19 @@ public class BladeServiceBuilderTest {
 	private static String _fooServiceJarBSN = "com.liferay.blade.basic.service";
 	private static String _fooWebJarBSN = "com.liferay.blade.basic.web";
 
-	@FindBy(xpath = "//span[@class='lfr-btn-label']")
+	@FindBy(xpath = "//span[@class='lfr-btn-label' and contains(.,'Add')]")
 	private WebElement _addButton;
 
-	@FindBy(css = "input[id$='field1']")
+	@FindBy(xpath = "//input[contains(@id,'field1')]")
 	private WebElement _field1Form;
 
-	@FindBy(css = "input[id$='field5']")
+	@FindBy(xpath = "//input[contains(@id,'field5')]")
 	private WebElement _field5Form;
 
 	@FindBy(xpath = "//div[contains(@id,'_com_liferay_blade_samples_servicebuilder_web')]/table//..//tr/td[6]")
 	private WebElement _firstRowField5;
 
-	@FindBy(xpath = "//div[@class='btn-group lfr-icon-menu']/a")
+	@FindBy(xpath = "//table//..//div[@class='btn-group lfr-icon-menu']/a")
 	private WebElement _lfrIconMenu;
 
 	@FindBy(xpath = "//ul[contains(@class,'dropdown-menu')]/li[2]/a[contains(.,'Delete')]")
@@ -238,7 +240,7 @@ public class BladeServiceBuilderTest {
 	@PortalURL("com_liferay_blade_samples_servicebuilder_web")
 	private URL _portletURL;
 
-	@FindBy(css = "button[type=submit]")
+	@FindBy(xpath = "//span[@class='lfr-btn-label' and contains(.,'Save')]")
 	private WebElement _saveButton;
 
 	@FindBy(xpath = "//div[contains(@id,'_com_liferay_blade_samples_servicebuilder_web')]/table//..//tr[2]/td[6]")
