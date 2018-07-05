@@ -142,8 +142,6 @@ public class BladeServiceBuilderTest {
 
 		_webDriver.navigate().to(url);
 
-		_webDriver.navigate().refresh();
-
 		Assert.assertTrue(
 			"Service Builder Table is not visible",
 			BladeSampleFunctionalActionUtil.isVisible(_webDriver, _table));
