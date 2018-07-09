@@ -298,10 +298,6 @@ public class BladeSamplesTest {
 
 	@Test
 	public void testServiceBuilderBladeSample() throws Exception {
-		Assume.assumeTrue(
-			BladeSampleFunctionalActionUtil.getPortalVersion().equals("7.0") &&
-			!System.getProperty("portalVersion").contains("master"));
-
 		_projectPath = new File(
 			System.getProperty("user.dir")).getParentFile().getParentFile();
 
