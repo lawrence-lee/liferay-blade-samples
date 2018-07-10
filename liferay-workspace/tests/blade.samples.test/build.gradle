@@ -55,6 +55,8 @@ task testFunctional(type: Test) {
 	testClassesDir = sourceSets.testFunctional.output.classesDir
 	classpath = sourceSets.testFunctional.runtimeClasspath
 	outputs.upToDateWhen { false }
+	
+	dependsOn startTestableTomcat
 
 	dependsOn ":apps:action-command-portlet:jar"
 	dependsOn ":apps:configuration-action:jar"
