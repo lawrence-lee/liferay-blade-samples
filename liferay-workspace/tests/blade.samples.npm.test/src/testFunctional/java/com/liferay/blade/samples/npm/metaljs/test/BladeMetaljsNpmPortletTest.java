@@ -31,7 +31,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -50,6 +49,8 @@ public class BladeMetaljsNpmPortletTest {
 	public static JavaArchive create() throws Exception {
 		final File jarFile = new File(
 			System.getProperty("metaljsNpmPortletJarFile"));
+
+		System.out.println(jarFile.toPath().toAbsolutePath());
 
 		return ShrinkWrap.createFromZipFile(JavaArchive.class, jarFile);
 	}
@@ -70,7 +71,8 @@ public class BladeMetaljsNpmPortletTest {
 
 		Assert.assertTrue(
 			"Expected: Metal.js Portlet, but saw: " + _portletTitle.getText(),
-			_portletTitle.getText().contentEquals("Metal.js Portlet"));
+			_portletTitle.getText().toLowerCase().contentEquals(
+				"metal.js portlet"));
 
 		Assert.assertTrue(
 			BladeSampleFunctionalActionUtil.isClickable(
@@ -89,7 +91,7 @@ public class BladeMetaljsNpmPortletTest {
 	@FindBy(xpath = "//section[contains(@id,'MetaljsPortlet')]//..//div[@class='portlet-body']/button")
 	private WebElement _portletBodyButton;
 
-	@FindBy(xpath = "//section[contains(@id,'MetaljsPortlet')]/header/div/span")
+	@FindBy(xpath = "//section[contains(@id,'MetaljsPortlet')]//..//div/h2")
 	private WebElement _portletTitle;
 
 	@PortalURL("com_liferay_blade_npm_metaljs_portlet_MetaljsPortlet")

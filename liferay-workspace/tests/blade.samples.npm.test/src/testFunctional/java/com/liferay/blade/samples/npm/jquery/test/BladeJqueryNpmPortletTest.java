@@ -70,7 +70,8 @@ public class BladeJqueryNpmPortletTest {
 		Assert.assertTrue(
 			"Expected: Liferay NPM jQuery Example, but saw: " +
 				_portletTitle.getText(),
-			_portletTitle.getText().contentEquals("Liferay NPM jQuery Example"));
+			_portletTitle.getText().toLowerCase().contentEquals(
+				"liferay npm jquery example"));
 
 		Assert.assertTrue(
 			"Expected: Hello from jQuery!..., but saw: " +
@@ -84,7 +85,7 @@ public class BladeJqueryNpmPortletTest {
 	@FindBy(xpath = "//section[contains(@id,'JQueryPortlet')]//..//div[@class='portlet-body']/div")
 	private WebElement _portletBodyBody;
 
-	@FindBy(xpath = "//section[contains(@id,'JQueryPortlet')]/header/div/span")
+	@FindBy(xpath = "//section[contains(@id,'JQueryPortlet')]//..//div/h2")
 	private WebElement _portletTitle;
 
 	@PortalURL("com_liferay_blade_npm_jquery_portlet_JQueryPortlet")
