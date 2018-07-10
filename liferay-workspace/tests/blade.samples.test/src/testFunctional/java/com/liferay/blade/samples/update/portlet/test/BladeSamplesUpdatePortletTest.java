@@ -95,16 +95,18 @@ public class BladeSamplesUpdatePortletTest {
 	public void testUpdateMVCPortletProject() throws Exception {
 		_webDriver.get(_portletURL.toExternalForm());
 
+		BladeSampleFunctionalActionUtil.implicitWait(_webDriver);
+
 		Assert.assertTrue(
 			"Portlet was not deployed",
-			BladeSampleFunctionalActionUtil.isVisible(
-				_webDriver, _helloWorldPortlet));
+			_helloWorldPortlet.isDisplayed());
 		Assert.assertTrue(
 			_portletTitle.getText(),
-			_portletTitle.getText().contentEquals("helloworld Portlet"));
+			BladeSampleFunctionalActionUtil.getTextToLowerCase(
+				_portletTitle).equals("helloworld"));
 		Assert.assertTrue(
 			_portletBody.getText(),
-			_portletBody.getText().contentEquals("Hello from helloworld JSP!"));
+			_portletBody.getText().equals("Hello from Helloworld!"));
 
 		File dynamicFile = new File(
 			_projectPath +
@@ -191,15 +193,15 @@ public class BladeSamplesUpdatePortletTest {
 
 		Assert.assertTrue(
 			"Portlet was not deployed",
-			BladeSampleFunctionalActionUtil.isVisible(
-				_webDriver, _helloWorldPortlet));
+			_helloWorldPortlet.isDisplayed());
 		Assert.assertTrue(
 			_portletTitle.getText(),
-			_portletTitle.getText().contentEquals("helloworld Portlet"));
+			BladeSampleFunctionalActionUtil.getTextToLowerCase(
+				_portletTitle).equals("helloworld"));
 		Assert.assertTrue(
 			_portletBody.getText(),
-			_portletBody.getText().contentEquals(
-				"Hello from helloworld JSP!bar"));
+			_portletBody.getText().equals(
+				"Hello from Helloworld!bar"));
 	}
 
 	private static File _appsDir;
@@ -207,16 +209,16 @@ public class BladeSamplesUpdatePortletTest {
 	private static String _helloWorldJarBSN = "helloworld";
 	private static File _projectPath;
 
-	@FindBy(xpath = "//div[contains(@id,'_Helloworld')]")
+	@FindBy(xpath = "//div[contains(@id,'_helloworld')]")
 	private WebElement _helloWorldPortlet;
 
-	@FindBy(xpath = "//div[contains(@id,'_Helloworld')]//..//p")
+	@FindBy(xpath = "//div[contains(@id,'_helloworld')]//..//p")
 	private WebElement _portletBody;
 
-	@FindBy(xpath = "//div[contains(@id,'_Helloworld')]//..//h2")
+	@FindBy(xpath = "//div[contains(@id,'_helloworld')]//..//h2")
 	private WebElement _portletTitle;
 
-	@PortalURL("Helloworld")
+	@PortalURL("helloworld")
 	private URL _portletURL;
 
 	@Drone

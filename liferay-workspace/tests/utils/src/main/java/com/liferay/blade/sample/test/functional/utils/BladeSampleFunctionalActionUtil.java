@@ -18,6 +18,8 @@ package com.liferay.blade.sample.test.functional.utils;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriver.Options;
 import org.openqa.selenium.WebDriver.Timeouts;
@@ -105,6 +107,27 @@ public class BladeSampleFunctionalActionUtil {
 		return webDriver;
 	}
 
+	public static boolean isAlertPresent(WebDriver webDriver) {
+		try {
+			WebDriverWait webDriverWait = new WebDriverWait(webDriver, 15);
+
+			Alert alert = webDriverWait.until(
+				ExpectedConditions.alertIsPresent());
+
+			if (alert != null) {
+				webDriver.switchTo().alert().accept();
+
+				return true;
+			}
+			else {
+				throw new NoAlertPresentException();
+			}
+		}
+		catch (NoAlertPresentException nape) {
+			return false;
+		}
+	}
+
 	public static boolean isClickable(
 		WebDriver webDriver, WebElement webelement) {
 
@@ -184,6 +207,14 @@ public class BladeSampleFunctionalActionUtil {
 		else {
 			return portalVersion;
 		}
+	}
+
+	public static String getTextToLowerCase(WebElement webelement) {
+		String text = webelement.getText();
+
+		String textToLowerCase = text.toLowerCase();
+
+		return textToLowerCase;
 	}
 
 }
