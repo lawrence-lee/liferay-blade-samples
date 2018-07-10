@@ -27,7 +27,7 @@ startTestableTomcat {
 testIntegration {
 	outputs.upToDateWhen { false }
 
-	dependsOn jar, ":initBundle", startTestableTomcat
+	dependsOn jar
 
 	dependsOn ":apps:service-builder:adq:adq-api:jar"
 
@@ -45,5 +45,3 @@ stopTestableTomcat {
 		delete new File(liferay.liferayHome, "data")
 	}
 }
-
-check.dependsOn testIntegration

@@ -38,7 +38,7 @@ testIntegration {
 	testClassesDir = sourceSets.testIntegration.output.classesDir
 	outputs.upToDateWhen { false }
 
-	dependsOn jar, ":initBundle", startTestableTomcat
+	dependsOn jar
 
 	systemProperty 'jarFile', jar.archivePath
 
@@ -56,5 +56,3 @@ stopTestableTomcat {
 		delete new File(liferay.liferayHome, "data")
 	}
 }
-
-check.dependsOn testIntegration
