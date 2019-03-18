@@ -22,6 +22,7 @@ dependencies {
 }
 
 startTestableTomcat {
+	environment "JAVA_OPTS", "-Xms4096m -Xmx8192m"
 	checkTimeout = 10 * 60 * 1000
 }
 
