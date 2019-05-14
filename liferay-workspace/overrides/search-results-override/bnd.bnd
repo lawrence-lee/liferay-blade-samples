@@ -1,0 +1,6 @@
+Bundle-Description: Conveys Liferay's recommended approach to override an application's JSP by leveraging OSGi fragment modules.
+Bundle-SymbolicName: com.liferay.blade.search.results.jsp.override
+Bundle-Version: 1.0.0
+Fragment-Host: com.liferay.portal.search.web;bundle-version="3.0.49"
+Import-Package: !com.liferay.portal.search.web.internal.*,*
+-sources: true
